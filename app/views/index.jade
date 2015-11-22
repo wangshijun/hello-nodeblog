@@ -5,4 +5,30 @@ block content
         h1= title
         p Welcome to #{title}s
 
+        //- messages
+        div#alert.alert.alert-danger this is an error message
+
+        div.alert.alert-success
+            | this is a success message
+            | this is a success message
+            | this is a success message
+            | this is a success message
+
+        // atributes
+        a.btn.btn-primary(href="http://www.baidu.com", target="_blank") baidu.com
+
+        //- condition
+        - var name = 'nodeblog0'
+        if name === 'nodeblog'
+            p name is nodeblog
+        else
+            p name is not nodeblog
+
+        //- loops
+        - var list = ['wangshijun', 'maiziedu'];
+        ul
+            each value in list
+                li=value
+
+block scripts
     script $(document).ready(function () { console.log('dom ready'); });

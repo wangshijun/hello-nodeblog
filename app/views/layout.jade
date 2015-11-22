@@ -7,10 +7,13 @@ html(lang='en')
         block css
             link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
             link(rel='stylesheet', href='/css/style.css')
+    body
+        block content
+
         block js
             script(src='/components/jquery/dist/jquery.js')
             script(src='/components/bootstrap/dist/js/bootstrap.js')
         if ENV_DEVELOPMENT
             script(src='http://localhost:35729/livereload.js')
-    body
-        block content
+
+        block scripts
