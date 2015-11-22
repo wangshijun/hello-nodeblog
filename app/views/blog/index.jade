@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    div.container
+        h1= title
+        p Welcome to #{title}s
+
+block scripts
+    script $(document).ready(function () { console.log('dom ready'); });
