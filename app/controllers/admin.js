@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
     Article.find(function (err, articles) {
         if (err) return next(err);
         res.render('admin/index', {
-            title: 'Generator-Express MVC',
+            title: 'Node Blog Admin',
             articles: articles
         });
     });
