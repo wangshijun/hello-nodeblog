@@ -3,7 +3,7 @@
  */
 
 body {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Arial, Times, serif;
     color: #555;
 }
 
@@ -46,9 +46,11 @@ h6, .h6 {
 .blog-nav-item {
     position: relative;
     display: inline-block;
-    padding: 10px;
+    padding: 10px 20px;
     font-weight: 500;
+    font-size: 18px;
     color: #cdddeb;
+    line-height: 30px;
 }
 .blog-nav-item:hover,
 .blog-nav-item:focus {
