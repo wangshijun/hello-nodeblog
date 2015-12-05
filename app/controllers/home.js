@@ -8,7 +8,7 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-    Post.find(function (err, posts) {
+    Post.find().populate('author').populate('category').exec(function (err, posts) {
         if (err) return next(err);
         res.render('blog/index', {
             title: 'Node Blog Home',
