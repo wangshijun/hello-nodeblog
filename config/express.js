@@ -3,6 +3,7 @@ var glob = require('glob');
 
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var moment = require('moment');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
@@ -18,6 +19,7 @@ module.exports = function(app, config) {
 
     app.use(function (req, res, next) {
         app.locals.pageName = req.path;
+        app.locals.moment = moment;
         console.log(app.locals.pageName);
         next();
     });
@@ -33,7 +35,7 @@ module.exports = function(app, config) {
     app.use(express.static(config.root + '/public'));
     app.use(methodOverride());
 
-    var controllers = glob.sync(config.root + '/app/controllers/*.js');
+    var controllers = glob.sync(config.root + '/app/controllers/**/*.js');
     controllers.forEach(function (controller) {
         require(controller)(app);
     });

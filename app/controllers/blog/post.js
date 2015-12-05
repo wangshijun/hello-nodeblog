@@ -4,30 +4,24 @@ var express = require('express'),
     Post = mongoose.model('Post');
 
 module.exports = function (app) {
-    app.use('/', router);
+    app.use('/posts', router);
 };
 
 router.get('/', function (req, res, next) {
     Post.find().populate('author').populate('category').exec(function (err, posts) {
         if (err) return next(err);
         res.render('blog/index', {
-            title: 'Node Blog Home',
             posts: posts,
             pretty: true,
         });
     });
 });
 
-router.get('/about', function (req, res, next) {
-    res.render('blog/index', {
-        title: 'About me',
-        pretty: true,
-    });
+router.get('/view', function (req, res, next) {
 });
 
-router.get('/contact', function (req, res, next) {
-    res.render('blog/index', {
-        title: 'Contact me',
-        pretty: true,
-    });
+router.get('/comment', function (req, res, next) {
+});
+
+router.get('/favourite', function (req, res, next) {
 });

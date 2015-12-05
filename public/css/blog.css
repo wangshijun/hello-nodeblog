@@ -139,19 +139,39 @@ h6, .h6 {
 /*
  * Blog posts
  */
-
-.blog-post {
-    margin-bottom: 60px;
-}
-.blog-post-title {
-    margin-bottom: 5px;
-    font-size: 40px;
-}
-.blog-post-meta {
-    margin-bottom: 20px;
-    color: #999;
+.post {
+    margin-bottom: 40px;
 }
 
+.post-title {
+    border: 1px solid #EEEEEE;
+    border-width: 1px 0;
+    padding: 5px 0;
+}
+
+.post-abstract {
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    font-size: 0.75em;
+}
+
+.post-meta > span {
+    display: inline-block;
+    padding-right: 10px;
+    margin: 0 5px;
+    border-right: 1px dotted #DDDDDD;
+}
+
+.post-meta > span:first-of-type {
+    margin-left: 0;
+}
+
+.post-meta > span:last-of-type {
+    margin-right: 0;
+    border-right: 0;
+}
 
 /*
  * Footer
