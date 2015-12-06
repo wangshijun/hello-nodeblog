@@ -5,7 +5,7 @@ block content
     each post in posts
         div.post
             h3.post-title
-                a(href="/posts/view/" + post._id, target="_blank")
+                a(href="/posts/view/" + post.slug, target="_blank")
                     =post.title
             div.post-abstract
                 =truncate(post.content, 160)
@@ -27,7 +27,7 @@ block content
                     被赞:&nbsp;
                     =post.meta.favorite || 0
                 span.post-link
-                    a(href="/posts/view/" + post._id, target="_blank") 查看全文
+                    a(href="/posts/view/" + post.slug, target="_blank") 查看全文
 
     if pageCount > 1
         nav

@@ -173,6 +173,22 @@ h6, .h6 {
     border-right: 0;
 }
 
+.post-view-header {
+    text-align: center;
+}
+
+.post-view .post-meta {
+    border-bottom: 1px dotted #DDDDDD;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.post-view .post-content {
+    text-indent: 2em;
+    text-align: justify;
+}
+
 /*
  * Footer
  */

@@ -1,0 +1,40 @@
+extends layout
+
+block content
+    h2.page-header.post-view-header= post.title
+    div.post.post-view
+        div.post-meta
+            span.post-created
+                i.fa.fa-calendar
+                &nbsp;
+                = moment(post.created).format('YYYY-MM-DD')
+            span.post-author
+                i.fa.fa-user
+                &nbsp;
+                = post.author.name
+            span.post-category
+                i.fa.fa-shopping-basket
+                &nbsp;
+                a(href="/posts/category/" + post.category.name, target="_blank")
+                    = post.category.name
+            span.post-comment
+                i.fa.fa-comment
+                &nbsp;
+                = post.comments.length || 0
+            span.post-favorite
+                a(href="/posts/favorite/" + post._id)
+                    i.fa.fa-star
+                    &nbsp;
+                    = post.meta.favorite || 0
+
+        div.post-content
+            = post.content
+
+
+block scripts
+    script $(document).ready(function () { console.log('dom ready'); });
+
+
+
+
+
