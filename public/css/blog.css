@@ -102,7 +102,6 @@ h6, .h6 {
  */
 
 .blog-main {
-    font-size: 18px;
     line-height: 1.5;
 }
 
@@ -187,6 +186,21 @@ h6, .h6 {
 .post-view .post-content {
     text-indent: 2em;
     text-align: justify;
+}
+
+.post-comments,
+.post-comment-form {
+    margin-top: 30px;
+}
+
+.post-comment-item {
+    border: 1px dotted #DDDDDD;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.post-comment-email {
+    border-bottom: 1px dotted #DDDDDD;
 }
 
 /*

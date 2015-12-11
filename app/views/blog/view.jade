@@ -31,6 +31,29 @@ block content
             = post.content
 
 
+        div.post-comments
+            h3 用户评论
+
+            div.post-comment-list
+                if post.comments.length
+                    each comment in post.comments
+                        div.post-comment-item
+                            h5.post-comment-email= comment.email
+                                small.pull-right= comment.created
+                            p.post-comment-content= comment.content
+                else
+                    p.alert.alert-info 还没有评论
+
+            form.post-comment-form(action="/posts/comment/" + post._id, method="post", enctype="application/x-www-form-urlencoded")
+                h3 添加评论
+                div.form-group
+                    label(for="email") 邮箱
+                    input.form-control(type="text", name="email", placeholder="请输入邮箱...")
+                div.form-group
+                    label(for="content") 内容
+                    textarea.form-control(type="text", name="content", placeholder="请输入邮箱...")
+                button.btn.btn-primary 提交
+
 block scripts
     script $(document).ready(function () { console.log('dom ready'); });
 
