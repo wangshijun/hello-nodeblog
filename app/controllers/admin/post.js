@@ -9,8 +9,21 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
+    var sortby = req.query.sortby ? req.query.sortby : 'title';
+    var sortdir = req.query.sortdir ? req.query.sortdir : 'desc';
+
+    if (['title', 'category', 'author', 'created', 'published'].indexOf(sortby) === -1) {
+        sortby = 'created';
+    }
+    if (['desc', 'asc'].indexOf(sortdir) === -1) {
+        sortdir = 'desc';
+    }
+
+    var sortObj = {};
+    sortObj[sortby] = sortdir;
+
     Post.find({ published: true })
-        .sort('created')
+        .sort(sortObj)
         .populate('author')
         .populate('category')
         .exec(function (err, posts) {
@@ -30,9 +43,20 @@ router.get('/', function (req, res, next) {
                 posts: posts.slice((pageNum - 1) * pageSize, pageNum * pageSize),
                 pageNum: pageNum,
                 pageCount: pageCount,
+                sortdir: sortdir,
+                sortby: sortby,
                 pretty: true,
             });
         });
+});
+
+router.get('/add', function (req, res, next) {
+    res.render('admin/post/add', {
+        pretty: true,
+    });
+});
+
+router.post('/add', function (req, res, next) {
 });
 
 router.get('/edit/:id', function (req, res, next) {

@@ -6,13 +6,73 @@ block content
     table.table.table-bordered
         thead
             tr
-                th(width="30%") 标题
-                th 分类
-                th 作者
-                th 添加时间
+                th(width="30%") 
+                    if sortby === 'title'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;标题
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;标题
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=title&sortdir=desc")
+                            标题
+                th 
+                    if sortby === 'category'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;分类
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;分类
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=category&sortdir=desc")
+                            分类
+                th 
+                    if sortby === 'author'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=author&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;作者
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=author&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;作者
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=author&sortdir=desc")
+                            作者
+                th 
+                    if sortby === 'created'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=created&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;添加时间
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=created&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;添加时间
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=created&sortdir=desc")
+                            添加时间
                 th 被赞
                 th 评论
-                th 状态
+                th 
+                    if sortby === 'published'
+                        if (sortdir === 'desc')
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=published&sortdir=asc")
+                                i.fa.fa-arrow-down
+                                &nbsp;状态
+                        else
+                            a(href="/admin/posts?page=" + pageNum + "&sortby=published&sortdir=desc")
+                                i.fa.fa-arrow-up
+                                &nbsp;状态
+                    else
+                        a(href="/admin/posts?page=" + pageNum + "&sortby=published&sortdir=desc")
+                            状态
                 th 管理
         tbody
         each post in posts
@@ -39,10 +99,10 @@ block content
                 while currentPage < pageCount
                     if (currentPage === pageNum)
                         li.active
-                            a(href="/admin/posts?page=" + currentPage)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
                     else
                         li
-                            a(href="/admin/posts?page=" + currentPage)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
 block scripts
     script $(document).ready(function () { console.log('dom ready'); });

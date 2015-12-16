@@ -30,25 +30,25 @@ block main
         .row
             .col-sm-3.col-md-2.sidebar
                 ul.nav.nav-sidebar
-                    li.active
+                    li(class={active: pageName === "/admin/posts"})
                         a(href="/admin/posts")
                             i.fa.fa-files-o
                             | &nbsp;文章列表
-                    li
+                    li(class={active: pageName === "/admin/posts/add"})
                         a(href="/admin/posts/add")
                             i.fa.fa-file-o
                             | &nbsp;添加文章
-                    li
+                    li(class={active: pageName === "/admin/categories"})
                         a(href="/admin/categories")
                             i.fa.fa-th-list
                             | &nbsp;分类列表
-                    li
+                    li(class={active: pageName === "/admin/categories/add"})
                         a(href="/admin/categories/add")
                             i.fa.fa-plus
                             | &nbsp;添加分类
 
                 ul.nav.nav-sidebar
-                    li
+                    li(class={active: pageName === "/admin/users/password"})
                         a(href="/admin/users/password")
                             i.fa.fa-lock
                             | &nbsp;修改密码
