@@ -3,6 +3,23 @@ extends ../layout
 block content
     h2.page-header 文章列表
 
+    form.form-inline.form-filter
+        div.form-group
+            label 分类
+            select#js-category.form-control(name="category")
+                option(value="", selected=(filter.category === "")) - 选择分类 -
+                each category in categories
+                    option(value=category._id, selected=(category._id.toString() === filter.category))= category.name
+
+        div.form-group
+            label 作者
+            select#js-author.form-control(name="author")
+                option(value="", selected=(filter.author === "")) - 选择作者 -
+                each author in authors
+                    option(value=author._id, selected=(author._id.toString() === filter.author))= author.name
+
+        button#js-filter-submit.btn.btn-info 筛选
+
     table.table.table-bordered
         thead
             tr
@@ -99,13 +116,14 @@ block content
                 while currentPage < pageCount
                     if (currentPage === pageNum)
                         li.active
-                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&author=" + filter.author + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
                     else
                         li
-                            a(href="/admin/posts?page=" + currentPage + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
+                            a(href="/admin/posts?page=" + currentPage + "&category=" + filter.category + "&authors=" + filter.author + "&sortby=" + sortby + "&sortdir=" + sortdir)= currentPage++
 
 block scripts
-    script $(document).ready(function () { console.log('dom ready'); });
+    script(src='/js/querystring.js')
+    script(src='/js/admin/post.js')
 
 
 
