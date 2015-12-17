@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+	// list page
 	var ndCategory = $('#js-category');
 	var ndAuthor = $('#js-author');
 
@@ -24,4 +25,7 @@ $(document).ready(function () {
 		window.location.url = window.location.origin + window.location.pathname + queryString.stringify(query);
 
 	});
+
+	// add page
+	CKEDITOR.replace('js-post-content');
 });

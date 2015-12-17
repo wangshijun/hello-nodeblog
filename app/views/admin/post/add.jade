@@ -3,5 +3,24 @@ extends ../layout
 block content
     h2.page-header 添加文章
 
+    form.vertical-form(method="post", action="/admin/posts/add")
+        div.form-group
+            label(for="title") 标题
+            input.form-control.input-lg(name="title", placeholder="请输入标题...")
+
+        div.form-group
+            label(for="category") 分类
+            select.form-control.input-lg(name="category")
+                option(value="", selected=true) - 选择分类 -
+                each category in categories
+                    option(value=category._id)= category.name
+
+        div.form-group
+            label(for="content") 内容
+            textarea#js-post-content.form-control(name="content")
+
+        button.btn.btn-info(type="submit") 发布
+
 block scripts
-    script $(document).ready(function () { console.log('dom ready'); });
+    script(src="/js/ckeditor/ckeditor.js")
+    script(src="/js/admin/post.js")

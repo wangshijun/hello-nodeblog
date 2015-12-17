@@ -1,5 +1,6 @@
 var express = require('express'),
     router = express.Router(),
+    slug = require('slug'),
     mongoose = require('mongoose'),
     Post = mongoose.model('Post'),
     User = mongoose.model('User'),
@@ -11,7 +12,7 @@ module.exports = function (app) {
 
 router.get('/', function (req, res, next) {
     // sort
-    var sortby = req.query.sortby ? req.query.sortby : 'title';
+    var sortby = req.query.sortby ? req.query.sortby : 'created';
     var sortdir = req.query.sortdir ? req.query.sortdir : 'desc';
 
     if (['title', 'category', 'author', 'created', 'published'].indexOf(sortby) === -1) {
@@ -77,6 +78,38 @@ router.get('/add', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
+    var title = req.body.title.trim();
+    var category = req.body.category.trim();
+    var content = req.body.content;
+
+    User.findOne({}, function (err, author) {
+        if (err) {
+            return next(err);
+        }
+
+        var post = new Post({
+            title: title,
+            slug: slug(title),
+            category: category,
+            content: content,
+            author: author,
+            published: true,
+            meta: { favorite: 0 },
+            comments: [],
+            created: new Date(),
+        });
+
+        post.save(function (err, post) {
+            if (err) {
+                console.log('post/add error:', err);
+                req.flash('error', '文章保存失败');
+                res.redirect('/admin/posts/add');
+            } else {
+                req.flash('info', '文章保存成功');
+                res.redirect('/admin/posts');
+            }
+        });
+    })
 });
 
 router.get('/edit/:id', function (req, res, next) {
