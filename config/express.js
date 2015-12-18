@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
+var validator = require('express-validator');
 
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -44,6 +45,24 @@ module.exports = function(app, config) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
+    }));
+
+    app.use(validator({
+        errorFormatter: function(param, msg, value) {
+            var namespace = param.split('.'),
+                root = namespace.shift(),
+                formParam = root;
+
+            while(namespace.length) {
+                formParam += '[' + namespace.shift() + ']';
+            }
+            
+            return {
+                param : formParam,
+                msg   : msg,
+                value : value
+            };
+        }
     }));
 
     app.use(cookieParser());

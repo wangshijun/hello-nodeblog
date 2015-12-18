@@ -95,7 +95,7 @@ block content
         each post in posts
             tr
                 td
-                    a(href="/posts/view/" + post._id, target="_blank")= post.title
+                    a(href="/posts/view/" + post._id, target="_blank", title=post.slug)= post.title
                 td= post.category.name
                 td= post.author.email
                 td= moment(post.created).format('YYYY-MM-DD HH:mm:ss')

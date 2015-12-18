@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     slug = require('slug'),
+    pinyin = require('pinyin'),
     mongoose = require('mongoose'),
     Post = mongoose.model('Post'),
     User = mongoose.model('User'),
@@ -78,6 +79,21 @@ router.get('/add', function (req, res, next) {
 });
 
 router.post('/add', function (req, res, next) {
+
+    req.checkBody('title', '文章标题不能为空').notEmpty();
+    req.checkBody('category', '必须指定文章分类').notEmpty();
+    req.checkBody('content', '文章内容至少写几句').notEmpty();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        return res.render('admin/post/add', {
+            errors: errors,
+            title: req.body.title,
+            content: req.body.content,
+        });
+    }
+
     var title = req.body.title.trim();
     var category = req.body.category.trim();
     var content = req.body.content;
@@ -87,9 +103,16 @@ router.post('/add', function (req, res, next) {
             return next(err);
         }
 
+        var py = pinyin(title, {
+            style: pinyin.STYLE_NORMAL,
+            heteronym: false
+        }).map(function (item) {
+            return item[0];
+        }).join(' ');
+
         var post = new Post({
             title: title,
-            slug: slug(title),
+            slug: slug(py),
             category: category,
             content: content,
             author: author,
