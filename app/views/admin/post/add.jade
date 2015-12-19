@@ -8,23 +8,23 @@ block content
             each error in errors
                 p.alert.alert-danger= error.msg
 
-    form.vertical-form(method="post", action="/admin/posts/add")
+    form.vertical-form(method="post", action=action)
         div.form-group
             label(for="title") 标题
-            input.form-control.input-lg(name="title", required="true", placeholder="请输入标题...")
+            input.form-control.input-lg(name="title", required="true", placeholder="请输入标题...", value=post.title)
 
         div.form-group
             label(for="category") 分类
             select.form-control.input-lg(name="category", required="true")
-                option(value="", selected=true) - 选择分类 -
+                option(value="") - 选择分类 -
                 each category in categories
-                    option(value=category._id)= category.name
+                    option(value=category._id, selected=(category._id.toString() === post.category._id.toString()))= category.name
 
         div.form-group
             label(for="content") 内容
-            textarea#js-post-content.form-control(name="content", required="true")
+            textarea#js-post-content.form-control(name="content", required="true")= post.content
 
-        button.btn.btn-info(type="submit") 发布
+        button.btn.btn-lg.btn-info(type="submit")= post ? "保存修改" : "发布文章"
 
 block scripts
     script(src="/js/ckeditor/ckeditor.js")
