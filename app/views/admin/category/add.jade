@@ -3,5 +3,17 @@ extends ../layout
 block content
     h2.page-header 添加分类
 
+    if errors && errors.length
+        div.errors
+            each error in errors
+                p.alert.alert-danger= error.msg
+
+    form.vertical-form(method="post", action=action)
+        div.form-group
+            label(for="name") 名称
+            input.form-control.input-lg(name="name", required="true", placeholder="请输入标题...", value=category.name)
+
+        button.btn.btn-lg.btn-info(type="submit")= post ? "保存修改" : "添加分类"
+
 block scripts
     script $(document).ready(function () { console.log('dom ready'); });
