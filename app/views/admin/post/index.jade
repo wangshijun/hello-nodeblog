@@ -18,6 +18,10 @@ block content
                 each author in authors
                     option(value=author._id, selected=(author._id.toString() === filter.author))= author.name
 
+        div.form-group
+            label 关键词
+            input#js-keyword.form-control(name="keyword", type="text", value=filter.keyword)
+
         button#js-filter-submit.btn.btn-info 筛选
 
     table.table.table-bordered

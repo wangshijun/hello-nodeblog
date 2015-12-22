@@ -9,7 +9,7 @@ var express = require('express'),
 
 module.exports = function (app) {
     app.use('/admin/posts', router);
-};
+}
 
 router.get('/', function (req, res, next) {
     // sort
@@ -33,6 +33,10 @@ router.get('/', function (req, res, next) {
     }
     if (req.query.author) {
         conditions.author = req.query.author.trim();
+    }
+    if (req.query.keyword) {
+        conditions.title = new RegExp(req.query.keyword.trim(), 'i');
+        conditions.content = new RegExp(req.query.keyword.trim(), 'i');
     }
 
     User.find({}, function (err, authors) {
@@ -66,6 +70,7 @@ router.get('/', function (req, res, next) {
                     filter: {
                         category: req.query.category || "",
                         author: req.query.author || "",
+                        keyword: req.query.keyword || "",
                     }
                 });
             });

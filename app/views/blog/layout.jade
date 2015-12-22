@@ -8,8 +8,8 @@ block main
     block header
         .blog-masthead
             .container
-                nav.blog-nav
-                    if pageName === '/'
+                nav.blog-nav.pull-left
+                    if pageName === '/posts'
                         a.blog-nav-item.active(href="/")  首页
                     else
                         a.blog-nav-item(href="/")  首页
@@ -23,6 +23,10 @@ block main
                         a.blog-nav-item.active(href="/contact") 联系
                     else
                         a.blog-nav-item(href="/contact") 联系
+
+
+                form.navbar-form.pull-right(method="get", action="/posts/")
+                    input.form-control(type="text", name="keyword", placeholder="搜索...")
 
     .container
         .row
