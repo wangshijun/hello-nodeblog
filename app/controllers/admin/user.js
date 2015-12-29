@@ -2,6 +2,7 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
     md5 = require('md5'),
+    passport = require('passport'),
     User = mongoose.model('User');
 
 module.exports = function (app) {
@@ -14,8 +15,9 @@ router.get('/login', function (req, res, next) {
     });
 });
 
-router.post('/login', function (req, res, next) {
-    res.jsonp(req.body);
+router.post('/login', passport.authenticate('local', { failureRedirect: '/admin/users/login' }), function (req, res, next) {
+    console.log('user login success: ', req.body);
+    res.redirect('/admin/posts');
 });
 
 router.get('/register', function (req, res, next) {
