@@ -9,6 +9,15 @@ module.exports = function (app) {
     app.use('/admin/users', router);
 };
 
+module.exports.requireLogin = function (req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        next(new Error('登录用户才能访问'));
+    }
+};
+
+
 router.get('/login', function (req, res, next) {
     res.render('admin/user/login', {
     	pretty: true,
@@ -57,6 +66,6 @@ router.post('/register', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-    // TODO
+    req.logout();
     res.redirect('/');
 });

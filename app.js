@@ -17,7 +17,7 @@ models.forEach(function (model) {
 });
 var app = express();
 
-require('./config/express')(app, config);
+require('./config/express')(app, config, db);
 require('./config/passport').init();
 
 app.listen(config.port, function () {

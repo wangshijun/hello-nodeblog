@@ -3,6 +3,7 @@ var express = require('express'),
     slug = require('slug'),
     pinyin = require('pinyin'),
     mongoose = require('mongoose'),
+    auth = require('./user'),
     Post = mongoose.model('Post'),
     User = mongoose.model('User'),
     Category = mongoose.model('Category');
@@ -11,7 +12,7 @@ module.exports = function (app) {
     app.use('/admin/posts', router);
 }
 
-router.get('/', function (req, res, next) {
+router.get('/', auth.requireLogin, function (req, res, next) {
     // sort
     var sortby = req.query.sortby ? req.query.sortby : 'created';
     var sortdir = req.query.sortdir ? req.query.sortdir : 'desc';
@@ -77,7 +78,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/add', function (req, res, next) {
+router.get('/add', auth.requireLogin, function (req, res, next) {
     res.render('admin/post/add', {
         action: "/admin/posts/add",
         pretty: true,
@@ -87,7 +88,7 @@ router.get('/add', function (req, res, next) {
     });
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add', auth.requireLogin, function (req, res, next) {
 
     req.checkBody('title', '文章标题不能为空').notEmpty();
     req.checkBody('category', '必须指定文章分类').notEmpty();
@@ -144,14 +145,14 @@ router.post('/add', function (req, res, next) {
     })
 });
 
-router.get('/edit/:id', getPostById, function (req, res, next) {
+router.get('/edit/:id', auth.requireLogin, getPostById, function (req, res, next) {
     res.render('admin/post/add', {
         action: "/admin/posts/edit/" + req.post._id,
         post: req.post,
     });
 });
 
-router.post('/edit/:id', getPostById, function (req, res, next) {
+router.post('/edit/:id', auth.requireLogin, getPostById, function (req, res, next) {
     var post = req.post;
     
     var title = req.body.title.trim();
@@ -182,7 +183,7 @@ router.post('/edit/:id', getPostById, function (req, res, next) {
     });
 });
 
-router.get('/delete/:id', function (req, res, next) {
+router.get('/delete/:id', auth.requireLogin, function (req, res, next) {
     if (!req.params.id) {
         return next(new Error('no post id provided'));
     }

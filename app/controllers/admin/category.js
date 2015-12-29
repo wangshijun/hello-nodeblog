@@ -3,6 +3,7 @@ var express = require('express'),
     pinyin = require('pinyin'),
     router = express.Router(),
     mongoose = require('mongoose'),
+    auth = require('./user'),
     Post = mongoose.model('Post'),
     Category = mongoose.model('Category');
 
@@ -10,13 +11,13 @@ module.exports = function (app) {
     app.use('/admin/categories', router);
 };
 
-router.get('/', function (req, res, next) {
+router.get('/', auth.requireLogin, function (req, res, next) {
     res.render('admin/category/index', {
         pretty: true,
     });
 });
 
-router.get('/add', function (req, res, next) {
+router.get('/add', auth.requireLogin, function (req, res, next) {
     res.render('admin/category/add', {
         action: "/admin/categories/add",
         pretty: true,
@@ -24,7 +25,7 @@ router.get('/add', function (req, res, next) {
     });
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add', auth.requireLogin, function (req, res, next) {
     req.checkBody('name', '分类标题不能为空').notEmpty();
 
     var errors = req.validationErrors();
@@ -62,14 +63,14 @@ router.post('/add', function (req, res, next) {
     });
 });
 
-router.get('/edit/:id', getCategoryById, function (req, res, next) {
+router.get('/edit/:id', auth.requireLogin, getCategoryById, function (req, res, next) {
     res.render('admin/category/add', {
         action: "/admin/categories/edit/" + req.category._id,
         category: req.category,
     });
 });
 
-router.post('/edit/:id', getCategoryById, function (req, res, next) {
+router.post('/edit/:id', auth.requireLogin, getCategoryById, function (req, res, next) {
     var category = req.category;
     
     var name = req.body.name.trim();
@@ -95,7 +96,7 @@ router.post('/edit/:id', getCategoryById, function (req, res, next) {
     });
 });
 
-router.get('/delete/:id', getCategoryById, function (req, res, next) {
+router.get('/delete/:id', auth.requireLogin, getCategoryById, function (req, res, next) {
     req.category.remove(function (err, rowsRemoved) {
         if (err) {
             return next(err);
