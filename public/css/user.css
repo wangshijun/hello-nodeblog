@@ -56,3 +56,19 @@ body {
     margin: 0;
     border-radius: 0;
 }
+
+#messages .error {
+    margin: 0;
+    padding: 0;
+}
+
+#messages .error li {
+    list-style: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}

@@ -7,6 +7,8 @@ block content
             small.pull-right
                 a(href="/admin/users/login") 登录
         
+        != messages()
+
         label.sr-only(for="email") 邮箱
         input.email.form-control(name="email", type="email", placeholder="Email address", required="", autofocus="")
         

@@ -6,6 +6,8 @@ block content
         h2.form-signin-heading 管理员登录
             small.pull-right
                 a(href="/admin/users/register") 注册
+
+        != messages()
         
         label.sr-only(for="email") 邮箱
         input.email.form-control(name="email", type="email", placeholder="Email address", required="", autofocus="")
